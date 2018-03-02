@@ -1,0 +1,70 @@
+{
+  "private": true,
+  "name": "serverless-express-typescript",
+  "version": "1.0.0",
+  "author": {
+    "name": "The Lab, by O2"
+  },
+  "contributors": [
+    {
+      "name": "Daniel Bradley",
+      "email": "daniel@danielbradley.net",
+      "url": "https://github.com/danielrbradley"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/o2Labs/serverless-express-typescript"
+  },
+  "engines": {
+    "node": ">=4.3.2"
+  },
+  "scripts": {
+    "format": "prettier --write --config .prettierrc.yaml '**/*.ts'",
+    "clean": "rm -f src/*.js",
+    "test": "jest && tsc --noEmit",
+    "start": "ts-node src/local.ts",
+    "build": "yarn clean && tsc",
+    "prepare": "yarn format && yarn test",
+    "package": "yarn build && serverless package",
+    "deploy": "yarn build && eval \"`aws-auth-helper` serverless deploy\""
+  },
+  "dependencies": {
+    "@types/aws-serverless-express": "^3.0.1",
+    "@types/compression": "^0.0.35",
+    "@types/cors": "^2.8.3",
+    "aws-serverless-express": "^3.1.0",
+    "compression": "^1.7.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4",
+    "source-map-support": "^0.5.3"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.2",
+    "@types/jest": "^21.1.9",
+    "@types/node": "^8.5.1",
+    "aws-auth-helper": "^1.0.0",
+    "faker": "^4.1.0",
+    "jest": "^22.0.4",
+    "prettier": "^1.9.2",
+    "serverless": "^1.26.0",
+    "ts-jest": "^22.0.0",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.6.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": ".*\\.test.(ts|tsx|js)",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
