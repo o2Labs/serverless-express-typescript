@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "serverless-express-typescript",
+  "description": "Serverless Express Typescript Starter Kit",
   "version": "1.0.0",
   "author": {
     "name": "The Lab, by O2"
@@ -16,6 +17,7 @@
     "type": "git",
     "url": "https://github.com/o2Labs/serverless-express-typescript"
   },
+  "license": "MIT",
   "engines": {
     "node": ">=4.3.2"
   },
