@@ -17,124 +17,125 @@ package:
 functions:
   http:
     handler: src/lambda.http
-    vpc:
-      subnetIds:
-        - 'Ref': 'PrivateSubnet1'
-        - 'Ref': 'PrivateSubnet2'
-        - 'Ref': 'PrivateSubnet3'
     timeout: 2
     events:
       - http: ANY /
       - http: ANY /{proxy+}
+#     ## Uncomment below here to use the private VPC setup
+#     vpc:
+#       subnetIds:
+#         - 'Ref': 'PrivateSubnet1'
+#         - 'Ref': 'PrivateSubnet2'
+#         - 'Ref': 'PrivateSubnet3'
 
-resources:
-  Resources:
-    ###### VPC & Subnets ######
-    VPC:
-      Type: 'AWS::EC2::VPC'
-      Properties:
-        CidrBlock: 10.0.0.0/16
-        EnableDnsHostnames: true
+# resources:
+#   Resources:
+#     ###### VPC & Subnets ######
+#     VPC:
+#       Type: 'AWS::EC2::VPC'
+#       Properties:
+#         CidrBlock: 10.0.0.0/16
+#         EnableDnsHostnames: true
 
-    PrivateSubnet1:
-      Type: AWS::EC2::Subnet
-      Properties:
-        AvailabilityZone: 'eu-west-1a'
-        Tags:
-          - Key: Name
-            Value:
-              Fn::Join:
-                - '-'
-                - [{Ref: 'AWS::StackName'}, 'private', 'eu-west-1a']
-        VpcId:
-          Ref: VPC
-        CidrBlock: 10.0.0.0/24
+#     PrivateSubnet1:
+#       Type: AWS::EC2::Subnet
+#       Properties:
+#         AvailabilityZone: 'eu-west-1a'
+#         Tags:
+#           - Key: Name
+#             Value:
+#               Fn::Join:
+#                 - '-'
+#                 - [{Ref: 'AWS::StackName'}, 'private', 'eu-west-1a']
+#         VpcId:
+#           Ref: VPC
+#         CidrBlock: 10.0.0.0/24
 
-    PrivateSubnet2:
-      Type: AWS::EC2::Subnet
-      Properties:
-        AvailabilityZone: 'eu-west-1b'
-        Tags:
-          - Key: Name
-            Value:
-              Fn::Join:
-                - '-'
-                - [{Ref: 'AWS::StackName'}, 'private', 'eu-west-1b']
-        VpcId:
-          Ref: VPC
-        CidrBlock: 10.0.1.0/24
+#     PrivateSubnet2:
+#       Type: AWS::EC2::Subnet
+#       Properties:
+#         AvailabilityZone: 'eu-west-1b'
+#         Tags:
+#           - Key: Name
+#             Value:
+#               Fn::Join:
+#                 - '-'
+#                 - [{Ref: 'AWS::StackName'}, 'private', 'eu-west-1b']
+#         VpcId:
+#           Ref: VPC
+#         CidrBlock: 10.0.1.0/24
 
-    PrivateSubnet3:
-      Type: AWS::EC2::Subnet
-      Properties:
-        AvailabilityZone: 'eu-west-1c'
-        Tags:
-          - Key: Name
-            Value:
-              Fn::Join:
-                - '-'
-                - [{Ref: 'AWS::StackName'}, 'private', 'eu-west-1c']
-        VpcId:
-          Ref: VPC
-        CidrBlock: 10.0.2.0/24
+#     PrivateSubnet3:
+#       Type: AWS::EC2::Subnet
+#       Properties:
+#         AvailabilityZone: 'eu-west-1c'
+#         Tags:
+#           - Key: Name
+#             Value:
+#               Fn::Join:
+#                 - '-'
+#                 - [{Ref: 'AWS::StackName'}, 'private', 'eu-west-1c']
+#         VpcId:
+#           Ref: VPC
+#         CidrBlock: 10.0.2.0/24
 
-    ###### Private Routing ######
-    PrivateRouteTable1:
-      Type: AWS::EC2::RouteTable
-      Properties:
-        Tags:
-          - Key: Name
-            Value:
-              Fn::Join:
-                - '-'
-                - [{Ref: 'AWS::StackName'}, 'private-1']
-        VpcId:
-          Ref: VPC
+#     ###### Private Routing ######
+#     PrivateRouteTable1:
+#       Type: AWS::EC2::RouteTable
+#       Properties:
+#         Tags:
+#           - Key: Name
+#             Value:
+#               Fn::Join:
+#                 - '-'
+#                 - [{Ref: 'AWS::StackName'}, 'private-1']
+#         VpcId:
+#           Ref: VPC
 
-    PrivateSubnetAssoc1:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties:
-        RouteTableId:
-          Ref: PrivateRouteTable1
-        SubnetId:
-          Ref: PrivateSubnet1
+#     PrivateSubnetAssoc1:
+#       Type: AWS::EC2::SubnetRouteTableAssociation
+#       Properties:
+#         RouteTableId:
+#           Ref: PrivateRouteTable1
+#         SubnetId:
+#           Ref: PrivateSubnet1
 
-    PrivateRouteTable2:
-      Type: AWS::EC2::RouteTable
-      Properties:
-        Tags:
-          - Key: Name
-            Value:
-              Fn::Join:
-                - '-'
-                - [{Ref: 'AWS::StackName'}, 'private-2']
-        VpcId:
-          Ref: VPC
+#     PrivateRouteTable2:
+#       Type: AWS::EC2::RouteTable
+#       Properties:
+#         Tags:
+#           - Key: Name
+#             Value:
+#               Fn::Join:
+#                 - '-'
+#                 - [{Ref: 'AWS::StackName'}, 'private-2']
+#         VpcId:
+#           Ref: VPC
 
-    PrivateSubnetAssoc2:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties:
-        RouteTableId:
-          Ref: PrivateRouteTable2
-        SubnetId:
-          Ref: PrivateSubnet2
+#     PrivateSubnetAssoc2:
+#       Type: AWS::EC2::SubnetRouteTableAssociation
+#       Properties:
+#         RouteTableId:
+#           Ref: PrivateRouteTable2
+#         SubnetId:
+#           Ref: PrivateSubnet2
 
-    PrivateRouteTable3:
-      Type: AWS::EC2::RouteTable
-      Properties:
-        Tags:
-          - Key: Name
-            Value:
-              Fn::Join:
-                - '-'
-                - [{Ref: 'AWS::StackName'}, 'private-3']
-        VpcId:
-          Ref: VPC
+#     PrivateRouteTable3:
+#       Type: AWS::EC2::RouteTable
+#       Properties:
+#         Tags:
+#           - Key: Name
+#             Value:
+#               Fn::Join:
+#                 - '-'
+#                 - [{Ref: 'AWS::StackName'}, 'private-3']
+#         VpcId:
+#           Ref: VPC
 
-    PrivateSubnetAssoc3:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties:
-        RouteTableId:
-          Ref: PrivateRouteTable3
-        SubnetId:
-          Ref: PrivateSubnet3
+#     PrivateSubnetAssoc3:
+#       Type: AWS::EC2::SubnetRouteTableAssociation
+#       Properties:
+#         RouteTableId:
+#           Ref: PrivateRouteTable3
+#         SubnetId:
+#           Ref: PrivateSubnet3
