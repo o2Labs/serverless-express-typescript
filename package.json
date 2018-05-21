@@ -46,11 +46,13 @@
     "@types/faker": "^4.1.2",
     "@types/jest": "^21.1.9",
     "@types/node": "^8.5.1",
+    "@types/supertest": "^2.0.4",
     "aws-auth-helper": "^1.0.0",
     "faker": "^4.1.0",
     "jest": "^22.0.4",
     "prettier": "^1.9.2",
     "serverless": "^1.26.0",
+    "supertest": "^3.1.0",
     "ts-jest": "^22.0.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.6.2"
