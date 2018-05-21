@@ -9,7 +9,8 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      }
+      },
+      "problemMatcher": []
     },
     {
       "type": "npm",
@@ -34,9 +35,18 @@
       "problemMatcher": []
     },
     {
-      "label": "start",
-      "type": "shell",
-      "command": "ts-node src/local.ts",
+      "type": "npm",
+      "script": "package",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "deploy",
       "problemMatcher": []
     }
   ]
